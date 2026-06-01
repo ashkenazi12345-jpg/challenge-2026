@@ -192,15 +192,16 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,10vw,96px);letter-sp
 const COLORS = { נשר:'var(--nesher)', דוב:'var(--dov)', נמר:'var(--namer)', זאב:'var(--zaev)' };
 const TEAM_BG = { נשר:'rgba(255,87,34,.15)', דוב:'rgba(41,121,255,.15)', נמר:'rgba(0,200,83,.15)', זאב:'rgba(170,0,255,.15)' };
 const MONTHS_ORDER = ['פבואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
-const COMPLETED = ['פבואר','מרץ','אפריל'];
+const COMPLETED = ['פבואר','מרץ','אפריל','מאי'];
 
 const CHALLENGES = {
   פבואר: { title:'PULLUP45 — 45 מתח על זמן', desc:'זמן נמוך = טוב יותר. תוצאות בפורמט דקות:שניות.', champion:'תמיר' },
   מרץ:  { title:'קבוצת ריצה', desc:'על הקבוצה לרוץ סכום של 15 דק׳ לאדם. התוצאה — ממוצע המרחק הקבוצתי בק״מ. מינימום 5 דק׳ לאדם.', champion:'ארז (3.95 ק״מ)' },
   אפריל: { title:'מקבילים 10% משקל גוף', desc:'תוצאה אחרונה ×2 · שאר התוצאות ÷2 · אקלו — ניקוד ישיר (היחיד שביצע בקבוצתו)', champion:'נבו — +2 נק׳ לזאב' },
-  מאי:  { title:'קרב סטטי — פלאנק', desc:'', champion:null },
-  יוני: { title:'SQUAT KING', desc:'', champion:null },
-  יולי: { title:'איש תלוי', desc:'', champion:null },
+  מאי:  { title:'קרב סטטי — פלאנק', desc:'קרב מרובע: נציג מכל קבוצה. כל 20 שניות נגיעה בכתף. הניקוד הנמוך ×2. ממוצע קבוצתי קובע את הדירוג.', champion:'אופיר ותמיר (18 נק׳ כל אחד) — +2 נק׳ לזאב' },
+  יוני: { title:'איש תלוי', desc:'הקבוצה בעלת הזמן הארוך ביותר מנצחת. לא יודעים כמה האחרים עשו עד השנייה האחרונה. מינימום זמן לאדם 15 שניות.', champion:null },
+  יולי: { title:'SQUAT KING', desc:'', champion:null },
+  אוגוסט: { title:'הרמת חבר — דדליפט', desc:'הגרלה בתוך הקבוצה. כל אדם מבצע מקסימום חזרות דדליפט לפי משקל החבר שהוגרל. האדם עם פערי המשקל הגבוהים ביותר — כל חזרה שלו מושלשת!', champion:null },
 };
 
 // אפריל: [שם, חזרות מקוריות, סוג (x2/d2/eq), ניקוד סופי, isMVP]
@@ -264,27 +265,38 @@ const MONTHLY_RESULTS = {
       נשר: [['גמליאל','2.45',false],['ברגר','0',false],['אלכסיי','3.00',false],['אקלו','3.65',false],['נועם','1.80',false]],
     }
   },
+  מאי: {
+    scores: { נמר:10, זאב:9, נשר:5, דוב:3 },
+    mvpNote: '⭐ אופיר ותמיר (זאב) — 18 נק׳ כל אחד → +2 בונוס לזאב',
+    teams: {
+      נמר: [['קובי','24 (×2)',false],['ארז','13',false],['קקון','15',false],['דורדיה','12',false]],
+      זאב: [['תמיר','18',true],['אופיר','18',true],['נבו','14 (×2)',false],['גבאי','לא ביצע',false]],
+      נשר: [['אקלו','14',false],['ברגר','12',false],['גמליאל','10',false],['נועם','8 (×2)',false],['אלכסיי','4',false]],
+      דוב: [['אשכנזי','13',false],['ליברטי','11',false],['ירין','8 (×2)',false],['וישניה','לא ביצע',false]],
+    }
+  },
 };
 
 const CUMULATIVE = {
   פבואר: { נשר:3,  דוב:5,  נמר:7,  זאב:12 },
   מרץ:  { נשר:6,  דוב:12, נמר:19, זאב:17 },
   אפריל: { נשר:9,  דוב:17, נמר:26, זאב:31 },
+  מאי:  { נשר:14, דוב:20, נמר:36, זאב:40 },
 };
 
 const GOLD = [
-  { name:'ארז',    team:'נמר', scores:{ פבואר:10, מרץ:12, אפריל:30 } },
-  { name:'אשכנזי', team:'דוב', scores:{ פבואר:0,  מרץ:20, אפריל:21 } },
-  { name:'נבו',    team:'זאב', scores:{ פבואר:0,  מרץ:21, אפריל:19 } },
-  { name:'אקלו',   team:'נשר', scores:{ פבואר:0,  מרץ:0,  אפריל:16 } },
-  { name:'תמיר',   team:'זאב', scores:{} },
+  { name:'ארז',    team:'נמר', scores:{ פבואר:10, מרץ:12, אפריל:30, מאי:33 } },
+  { name:'אשכנזי', team:'דוב', scores:{ פבואר:0,  מרץ:20, אפריל:21, מאי:23 } },
+  { name:'נבו',    team:'זאב', scores:{ פבואר:0,  מרץ:21, אפריל:19, מאי:24 } },
+  { name:'אקלו',   team:'נשר', scores:{ פבואר:0,  מרץ:0,  אפריל:16, מאי:17 } },
+  { name:'תמיר',   team:'זאב', scores:{ מאי:20 } },
+  { name:'אופיר',  team:'זאב', scores:{ מאי:15 } },
   { name:'ירין',   team:'דוב', scores:{} },
   { name:'ברגר',   team:'נשר', scores:{} },
   { name:'גמליאל', team:'נשר', scores:{} },
   { name:'גבאי',   team:'זאב', scores:{} },
   { name:'ליברטי', team:'דוב', scores:{} },
   { name:'רונן',   team:'נמר', scores:{} },
-  { name:'אופיר',  team:'זאב', scores:{} },
   { name:'וישניה', team:'דוב', scores:{} },
   { name:'נועם',   team:'נשר', scores:{} },
   { name:'קובי',   team:'נמר', scores:{} },
@@ -293,7 +305,7 @@ const GOLD = [
   { name:'קקון',   team:'נמר', scores:{} },
 ];
 
-let activeMonth = 'אפריל';
+let activeMonth = 'מאי';
 
 function showPage(id, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -303,10 +315,9 @@ function showPage(id, btn) {
 }
 
 function renderLeague() {
-  const cumul = CUMULATIVE[activeMonth] || CUMULATIVE['אפריל'];
-  const lastScores = activeMonth === 'אפריל'
-    ? { זאב:12, נמר:7, דוב:5, נשר:3 }
-    : (MONTHLY_RESULTS[activeMonth]?.scores || {});
+  const lastCompleted = COMPLETED[COMPLETED.length - 1];
+  const cumul = CUMULATIVE[activeMonth] || CUMULATIVE[lastCompleted];
+  const lastScores = MONTHLY_RESULTS[activeMonth]?.scores || MONTHLY_RESULTS[lastCompleted]?.scores || {};
   const sorted = Object.entries(cumul).sort((a,b)=>b[1]-a[1]);
   const maxScore = sorted[0][1];
   const medals = ['🥇','🥈','🥉','4'];
@@ -421,6 +432,9 @@ function renderMonthDetail() {
   if (!res) {
     html += `<div style="padding:36px;text-align:center;color:var(--muted);font-size:14px;"><span style="font-size:32px;display:block;margin-bottom:10px">⏳</span>נתונים יתעדכנו בסוף החודש</div>`;
   } else {
+    if (res.mvpNote) {
+      html += `<div style="padding:10px 20px;background:rgba(240,192,64,.07);border-bottom:1px solid rgba(240,192,64,.2);font-size:12px;color:var(--gold);">${res.mvpNote}</div>`;
+    }
     const sorted = Object.entries(res.teams).sort((a,b)=>(res.scores[b[0]]||0)-(res.scores[a[0]]||0));
     html += `<div class="teams-wrap">`;
     html += sorted.map(([team, members]) => `
@@ -446,24 +460,36 @@ function renderGold() {
   const medals = ['🥇','🥈','🥉'];
   const sorted = [...GOLD].sort((a,b)=>
     Object.values(b.scores).reduce((s,v)=>s+v,0)-Object.values(a.scores).reduce((s,v)=>s+v,0));
+  const leader = sorted[0];
+  const leaderTotal = Object.values(leader.scores).reduce((s,v)=>s+v,0);
+  // הוספת שורת מוביל לתוך ה-card לפני הטבלה
+  const banner = document.querySelector('.gold-banner');
+  if (banner && !document.getElementById('goldLeader')) {
+    const leaderEl = document.createElement('div');
+    leaderEl.id = 'goldLeader';
+    leaderEl.style.cssText = 'padding:10px 20px;background:rgba(240,192,64,.1);border-bottom:1px solid rgba(240,192,64,.25);font-size:13px;font-weight:700;color:var(--gold);display:flex;align-items:center;gap:8px;';
+    leaderEl.innerHTML = `👑 מוביל: ${leader.name} — ${leaderTotal} נק׳ &nbsp;<span style="font-size:11px;font-weight:400;color:var(--muted)">(${leader.team})</span>`;
+    banner.insertAdjacentElement('afterend', leaderEl);
+  }
   let html = `<thead><tr><th style="width:40px">#</th><th>שם</th><th>קבוצה</th>
     ${months.map(m=>`<th style="width:36px">${m.slice(0,3)}</th>`).join('')}
     <th style="width:60px">סה״כ</th></tr></thead><tbody>`;
   sorted.forEach((p, i) => {
     const total = Object.values(p.scores).reduce((s,v)=>s+v,0);
     const rank = i+1;
-    html += `<tr>
+    const isLeader = rank === 1;
+    html += `<tr ${isLeader ? 'style="background:rgba(240,192,64,.04)"' : ''}>
       <td class="g-rank ${rank<=3?'top':''}">${medals[i]||rank}</td>
-      <td class="g-name">${p.name}</td>
+      <td class="g-name">${isLeader ? '👑 ' : ''}${p.name}</td>
       <td><span class="g-team" style="background:${TEAM_BG[p.team]};color:${COLORS[p.team]}">${p.team}</span></td>
-      ${months.map(m=>{const v=p.scores[m];return v!=null?`<td><div class="month-cell mc-has">${v}</div></td>`:`<td><div class="month-cell mc-empty">·</div></td>`;}).join('')}
+      ${months.map(m=>{const v=p.scores[m];return (v!=null&&v>0)?`<td><div class="month-cell mc-has">${v}</div></td>`:`<td><div class="month-cell mc-empty">·</div></td>`;}).join('')}
       <td class="${total>0?'g-total':'g-total zero'}">${total||'—'}</td></tr>`;
   });
   document.getElementById('goldTable').innerHTML = html + '</tbody>';
 }
 
 function renderChallengesList() {
-  const upcoming = ['מאי','יוני','יולי'];
+  const upcoming = ['יוני','יולי','אוגוסט'];
   document.getElementById('challengesList').innerHTML = upcoming.map(m => {
     const ch = CHALLENGES[m];
     return `<div style="display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--border);">
