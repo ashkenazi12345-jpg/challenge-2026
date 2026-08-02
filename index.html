@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -193,7 +192,7 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,10vw,96px);letter-sp
 const COLORS = { נשר:'var(--nesher)', דוב:'var(--dov)', נמר:'var(--namer)', זאב:'var(--zaev)' };
 const TEAM_BG = { נשר:'rgba(255,87,34,.15)', דוב:'rgba(41,121,255,.15)', נמר:'rgba(0,200,83,.15)', זאב:'rgba(170,0,255,.15)' };
 const MONTHS_ORDER = ['פבואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
-const COMPLETED = ['פבואר','מרץ','אפריל','מאי','יוני'];
+const COMPLETED = ['פבואר','מרץ','אפריל','מאי','יוני','יולי'];
 
 const CHALLENGES = {
   פבואר: { title:'PULLUP45 — 45 מתח על זמן', desc:'זמן נמוך = טוב יותר. תוצאות בפורמט דקות:שניות.', champion:'תמיר' },
@@ -201,8 +200,10 @@ const CHALLENGES = {
   אפריל: { title:'מקבילים 10% משקל גוף', desc:'תוצאה אחרונה ×2 · שאר התוצאות ÷2 · אקלו — ניקוד ישיר (היחיד שביצע בקבוצתו)', champion:'נבו — +2 נק׳ לזאב' },
   מאי:  { title:'קרב סטטי — פלאנק', desc:'קרב מרובע: נציג מכל קבוצה. כל 20 שניות נגיעה בכתף. הניקוד הנמוך ×2. ממוצע קבוצתי קובע את הדירוג.', champion:'אופיר ותמיר (18 נק׳ כל אחד) — +2 נק׳ לזאב' },
   יוני: { title:'איש תלוי', desc:'הקבוצה בעלת הזמן הארוך ביותר מנצחת. לא יודעים כמה האחרים עשו עד השנייה האחרונה. מינימום זמן לאדם 15 שניות.', champion:'נבו — +2 נק׳ לזאב' },
-  יולי: { title:'SQUAT KING', desc:'', champion:null },
-  אוגוסט: { title:'הרמת חבר — דדליפט', desc:'הגרלה בתוך הקבוצה. כל אדם מבצע מקסימום חזרות דדליפט לפי משקל החבר שהוגרל. האדם עם פערי המשקל הגבוהים ביותר — כל חזרה שלו מושלשת!', champion:null },
+  יולי: { title:'SQUAT KING', desc:'מקסימום חזרות סקוואט (משקל גוף).', champion:'ארז — 26 חזרות → +2 נק׳ לנמר' },
+  אוגוסט: { title:'לחיצת חזה', desc:'80% ממשקל הגוף — מקסימום חזרות (מוט חופשי).', champion:null },
+  ספטמבר: { title:'דדליפט', desc:'', champion:null },
+  אוקטובר: { title:'אופניים', desc:'', champion:null },
 };
 
 // אפריל: [שם, חזרות מקוריות, סוג (x2/d2/eq), ניקוד סופי, isMVP]
@@ -287,6 +288,17 @@ const MONTHLY_RESULTS = {
       נשר: [['אקלו','01:30',false],['ברגר','01:00',false],['גמליאל','00:50',false],['אלכסיי','00:00',false],['נועם','00:00',false]],
     }
   },
+  יולי: {
+    scores: { נמר:12, דוב:7, זאב:5, נשר:3 },
+    avgs: { נמר:'16.5', דוב:'6.75', זאב:'6.5', נשר:'0' },
+    mvpNote: '⭐ ארז (נמר) — 26 חזרות → +2 בונוס לנמר',
+    teams: {
+      נמר: [['ארז','26',true],['דורדיה','20',false],['קקון','20',false],['קובי','0',false]],
+      דוב: [['אשכנזי','12',false],['ליברטי','9',false],['ירין','6',false],['וישניה','0',false]],
+      זאב: [['אופיר','15',false],['תמיר','8',false],['נבו','3',false],['גבאי','0',false]],
+      נשר: [['גמליאל','0',false],['ברגר','0',false],['אלכסיי','0',false],['אקלו','0',false],['נועם','0',false]],
+    }
+  },
 };
 
 const CUMULATIVE = {
@@ -295,15 +307,16 @@ const CUMULATIVE = {
   אפריל: { נשר:9,  דוב:17, נמר:26, זאב:29 },
   מאי:  { נשר:14, דוב:20, נמר:36, זאב:38 },
   יוני: { נשר:17, דוב:25, נמר:43, זאב:50 },
+  יולי: { נשר:20, דוב:32, נמר:55, זאב:55 },
 };
 
 const GOLD = [
-  { name:'ארז',    team:'נמר', scores:{ פבואר:10, מרץ:12, אפריל:30, מאי:33, יוני:38 } },
-  { name:'אשכנזי', team:'דוב', scores:{ פבואר:0,  מרץ:20, אפריל:21, מאי:23, יוני:25 } },
-  { name:'נבו',    team:'זאב', scores:{ פבואר:0,  מרץ:21, אפריל:19, מאי:24, יוני:27 } },
+  { name:'ארז',    team:'נמר', scores:{ פבואר:10, מרץ:12, אפריל:30, מאי:33, יוני:38, יולי:37 } },
+  { name:'אשכנזי', team:'דוב', scores:{ פבואר:0,  מרץ:20, אפריל:21, מאי:23, יוני:25, יולי:20 } },
+  { name:'נבו',    team:'זאב', scores:{ פבואר:0,  מרץ:21, אפריל:19, מאי:24, יוני:27, יולי:29 } },
   { name:'אקלו',   team:'נשר', scores:{ פבואר:0,  מרץ:0,  אפריל:16, מאי:17 } },
   { name:'תמיר',   team:'זאב', scores:{ מאי:20 } },
-  { name:'אופיר',  team:'זאב', scores:{ מאי:37, יוני:20 } },
+  { name:'אופיר',  team:'זאב', scores:{ מאי:32, יוני:42, יולי:45 } },
   { name:'ירין',   team:'דוב', scores:{} },
   { name:'ברגר',   team:'נשר', scores:{} },
   { name:'גמליאל', team:'נשר', scores:{} },
@@ -318,7 +331,7 @@ const GOLD = [
   { name:'קקון',   team:'נמר', scores:{} },
 ];
 
-let activeMonth = 'יוני';
+let activeMonth = 'יולי';
 
 function showPage(id, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -505,7 +518,7 @@ function renderGold() {
 }
 
 function renderChallengesList() {
-  const upcoming = ['יולי','אוגוסט'];
+  const upcoming = ['אוגוסט','ספטמבר'];
   document.getElementById('challengesList').innerHTML = upcoming.map(m => {
     const ch = CHALLENGES[m];
     return `<div style="display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--border);">
